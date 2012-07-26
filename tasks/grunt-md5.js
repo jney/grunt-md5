@@ -61,7 +61,10 @@ module.exports = function(grunt) {
       var srcCode = grunt.file.read(srcFile);
       var ext = '';
       if (opts.keepExtension !== false) {
-        ext = '.' + fileExtension(srcFile);
+        ext = fileExtension(srcFile);
+        if (ext) {
+          ext = '.' + ext;
+        }
       }
       var filename = require('crypto').
         createHash('md5').
