@@ -22,6 +22,9 @@ grunt.initConfig({
         'dest/folder': 'src/file'
       },
       options: {
+        callback: function (newPath, oldPath) {
+          // do something with the generated file
+        },
         keepExtension: true
       }
     }

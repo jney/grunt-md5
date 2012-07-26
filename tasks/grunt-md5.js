@@ -34,7 +34,10 @@ module.exports = function(grunt) {
     async.forEachSeries(this.files, function(file, next) {
       srcFiles = grunt.file.expandFiles(file.src);
       destDir = file.dest;
-      // TODO generate error if file does not exists
+
+      if (typeof srcFiles == 'undefined') {
+        // TODO generate error if file does not exists
+      }
 
       if (grunt.file.exists(destDir) === false) {
         grunt.file.mkdir(destDir);
@@ -68,6 +71,10 @@ module.exports = function(grunt) {
       var output = require('path').join(destPath, filename);
 
       grunt.file.copy(srcFile, output);
+
+      if (_.isFunction(opts.callback)) {
+        opts.callback(grunt.file.expand(output), srcFile);
+      }
 
       callback(output);
 
