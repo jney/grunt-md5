@@ -1,0 +1,40 @@
+{
+  "name": "grunt-md5",
+  "description": "generate md5 filename",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jney/grunt-md5",
+  "author": {
+    "name": "Jean-Sébastien Ney",
+    "url": "http://github.com/jney/md5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jney/grunt-md5.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jney/grunt-md5/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jney/grunt-md5/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "grunt.js",
+  "bin": "bin/grunt-md5",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "grunt --base ./test/ --config ./test/grunt.js"
+  },
+  "dependencies": {
+    "grunt": "~0.3.10"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.10"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
