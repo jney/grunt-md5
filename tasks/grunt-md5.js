@@ -37,6 +37,7 @@ module.exports = function(grunt) {
 
       if (typeof srcFiles == 'undefined') {
         // TODO generate error if file does not exists
+        return;
       }
 
       if (grunt.file.exists(destDir) === false) {
