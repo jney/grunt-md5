@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/jney/grunt-md5.png)](http://travis-ci.org/jney/grunt-md5)
 # grunt-md5
 
 [Grunt][grunt] plugin for generating `MD5` filenames.
