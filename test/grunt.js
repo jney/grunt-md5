@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     },
 
     test: {
-      tasks: ["*_test.js"],
+      tasks: ["*_test.js"]
     },
 
     clean: {
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib');
+  grunt.loadTasks('../node_modules/grunt-contrib/tasks');
   grunt.loadTasks('../tasks');
   grunt.registerTask('default', 'clean md5 test:tasks');
 };
