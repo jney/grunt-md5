@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  */
 
-/*global _:true */
+/*global _:true, require:true*/
 
 module.exports = function(grunt) {
   'use strict';
@@ -24,14 +24,12 @@ module.exports = function(grunt) {
     grunt.verbose.writeflags(options, 'Options');
 
     // TODO: ditch this when grunt v0.4 is released
-    this.files = this.files || grunt.helper('normalizeMultiTaskFiles', this.data, this.target);
-
+    var files = this.files || grunt.helper('normalizeMultiTaskFiles', this.data, this.target);
     var done = this.async();
-
     var srcFiles;
     var destDir;
 
-    async.forEachSeries(this.files, function(file, next) {
+    async.forEachSeries(files, function(file) {
       srcFiles = grunt.file.expandFiles(file.src);
       destDir = file.dest;
 
@@ -44,17 +42,13 @@ module.exports = function(grunt) {
         grunt.file.mkdir(destDir);
       }
 
-      async.concatSeries(srcFiles, function(srcFile, nextConcat) {
+      srcFiles.forEach(function(srcFile) {
         grunt.helper('md5', srcFile, destDir, options, function(file) {
-          nextConcat(file);
+          grunt.log.writeln('File \'' + file + '\' created.');
         });
-      }, function(filename) {
-        grunt.log.writeln('File \'' + filename + '\' created.');
-        next();
       });
-    }, function() {
-      done();
-    });
+
+    }, done);
   });
 
   grunt.registerHelper('md5', function(srcFile, destPath, opts, callback) {

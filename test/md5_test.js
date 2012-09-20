@@ -3,14 +3,21 @@ var grunt = require('grunt');
 
 exports.md5 = {
   main: function(test) {
-    test.expect(1);
+    test.expect(2);
 
-    var filename = require('crypto').
+    var filenameA = require('crypto').
       createHash('md5').
-      update(fs.readFileSync('fixtures/js/test.js', 'utf8')).
+      update(fs.readFileSync('fixtures/js/test-a.js', 'utf8')).
       digest('hex') + '.js';
-    var result = fs.existsSync('fixtures/output/'+filename);
-    test.ok(result, 'should generate a md5 filename');
+    var resultA = fs.existsSync('fixtures/output/'+filenameA);
+    test.ok(resultA, 'should generate a md5 filename');
+
+    var filenameB = require('crypto').
+      createHash('md5').
+      update(fs.readFileSync('fixtures/js/test-b.js', 'utf8')).
+      digest('hex') + '.js';
+    var resultB = fs.existsSync('fixtures/output/'+filenameB);
+    test.ok(resultB, 'should generate a md5 filename');
 
     test.done();
   }

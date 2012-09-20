@@ -6,7 +6,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: {
       name: 'grunt-md5',
-      version: '0.0.1'
+      version: '0.1.0'
     },
 
     test: {
@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     md5: {
       compile: {
         files: {
-          'fixtures/output': 'fixtures/js/test.js'
+          'fixtures/output': 'fixtures/js/*'
         },
         options: {
           keepExtension: true

@@ -1,11 +1,11 @@
 {
   "name": "grunt-md5",
   "description": "generate md5 filename",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "https://github.com/jney/grunt-md5",
   "author": {
     "name": "Jean-Sébastien Ney",
-    "url": "http://github.com/jney/md5"
+    "url": "http://github.com/jney/"
   },
   "repository": {
     "type": "git",
