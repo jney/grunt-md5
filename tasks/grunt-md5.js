@@ -15,8 +15,6 @@ module.exports = function(grunt) {
   grunt.util = grunt.util || grunt.utils;
 
   var _ = grunt.util._;
-  var async = grunt.util.async;
-  var crypto = require('crypto');
 
   grunt.registerMultiTask('md5', 'Generate a md5 filename', function() {
     var options = grunt.helper('options', this);
@@ -25,11 +23,10 @@ module.exports = function(grunt) {
 
     // TODO: ditch this when grunt v0.4 is released
     var files = this.files || grunt.helper('normalizeMultiTaskFiles', this.data, this.target);
-    var done = this.async();
     var srcFiles;
     var destDir;
 
-    async.forEachSeries(files, function(file) {
+    files.forEach(function(file) {
       srcFiles = grunt.file.expandFiles(file.src);
       destDir = file.dest;
 
@@ -42,19 +39,22 @@ module.exports = function(grunt) {
         grunt.file.mkdir(destDir);
       }
 
+      destDir = grunt.file.expandDirs(destDir)[0];
+
       srcFiles.forEach(function(srcFile) {
         grunt.helper('md5', srcFile, destDir, options, function(file) {
           grunt.log.writeln('File \'' + file + '\' created.');
         });
       });
 
-    }, done);
+    });
   });
 
-  grunt.registerHelper('md5', function(srcFile, destPath, opts, callback) {
+  grunt.registerHelper('md5', function(srcFile, destDir, opts, callback) {
     try {
       var srcCode = grunt.file.read(srcFile);
       var ext = '';
+      // keep extension unless you explicitly tell to not
       if (opts.keepExtension !== false) {
         ext = fileExtension(srcFile);
         if (ext) {
@@ -66,15 +66,15 @@ module.exports = function(grunt) {
         update(srcCode).
         digest('hex') + ext;
 
-      var output = require('path').join(destPath, filename);
+      var destFile = require('path').join(destDir, filename);
 
-      grunt.file.copy(srcFile, output);
+      grunt.file.copy(srcFile, destFile);
 
       if (_.isFunction(opts.callback)) {
-        opts.callback(grunt.file.expand(output), srcFile);
+        opts.callback(destFile, srcFile, srcCode);
       }
 
-      callback(output);
+      callback(destFile, srcFile, srcCode);
 
     } catch(err) {
       grunt.log.error(err);

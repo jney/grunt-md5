@@ -23,7 +23,7 @@ grunt.initConfig({
         'dest/folder': 'src/file'
       },
       options: {
-        callback: function (newPath, oldPath) {
+        callback: function (newPath, oldPath, content) {
           // do something with the generated file
         },
         keepExtension: true
@@ -37,6 +37,7 @@ grunt.initConfig({
 [getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
 
 ## Release History
+* 0.1.1 Fixing many files handling
 * 0.0.1 First Release
 
 ## License

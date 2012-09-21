@@ -6,7 +6,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: {
       name: 'grunt-md5',
-      version: '0.1.0'
+      version: '0.1.1'
     },
 
     test: {
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     },
 
     md5: {
-      compile: {
+      main: {
         files: {
           'fixtures/output': 'fixtures/js/*'
         },
@@ -31,5 +31,5 @@ module.exports = function(grunt) {
 
   grunt.loadTasks('../node_modules/grunt-contrib/tasks');
   grunt.loadTasks('../tasks');
-  grunt.registerTask('default', 'clean md5 test:tasks');
+  grunt.registerTask('default', 'clean md5 test');
 };
