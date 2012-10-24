@@ -24,10 +24,6 @@ module.exports = function(grunt) {
     grunt.verbose.writeflags(options, 'Options');
 
     this.files.forEach(function(file) {
-      if (typeof file === 'undefined') {
-        // TODO generate error if file does not exists
-        return;
-      }
 
       srcFiles = grunt.file.expandFiles(file.src);
       destDir = file.dest;
