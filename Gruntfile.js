@@ -29,7 +29,9 @@ module.exports = function(grunt) {
       globals: {}
     },
     clean: {
-      output: ['test/fixtures/output']
+      output: {
+        src: ['test/fixtures/output']
+      }
     },
     md5: {
       main: {
