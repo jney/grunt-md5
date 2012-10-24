@@ -17,20 +17,17 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
 
   grunt.registerMultiTask('md5', 'Generate a md5 filename', function() {
-    var options = grunt.helper('options', this);
-
-    grunt.verbose.writeflags(options, 'Options');
-
-    // TODO: ditch this when grunt v0.4 is released
-    var files = this.files || grunt.helper('normalizeMultiTaskFiles', this.data, this.target);
+    var options = this.options;
     var srcFiles;
     var destDir;
 
-    files.forEach(function(file) {
+    grunt.verbose.writeflags(options, 'Options');
+
+    this.files.forEach(function(file) {
       srcFiles = grunt.file.expandFiles(file.src);
       destDir = file.dest;
 
-      if (typeof srcFiles == 'undefined') {
+      if (typeof srcFiles === 'undefined') {
         // TODO generate error if file does not exists
         return;
       }
