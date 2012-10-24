@@ -42,44 +42,36 @@ module.exports = function(grunt) {
       destDir = grunt.file.expandDirs(destDir)[0];
 
       srcFiles.forEach(function(srcFile) {
-        grunt.helper('md5', srcFile, destDir, options, function(file) {
-          grunt.log.writeln('File \'' + file + '\' created.');
-        });
-      });
 
-    });
-  });
+        try {
+          var srcCode = grunt.file.read(srcFile);
+          var ext = '';
+          // keep extension unless you explicitly tell to not
+          if (options.keepExtension !== false) {
+            ext = fileExtension(srcFile);
+            if (ext) {
+              ext = '.' + ext;
+            }
+          }
+          var filename = require('crypto').
+            createHash('md5').
+            update(srcCode).
+            digest('hex') + ext;
 
-  grunt.registerHelper('md5', function(srcFile, destDir, opts, callback) {
-    try {
-      var srcCode = grunt.file.read(srcFile);
-      var ext = '';
-      // keep extension unless you explicitly tell to not
-      if (opts.keepExtension !== false) {
-        ext = fileExtension(srcFile);
-        if (ext) {
-          ext = '.' + ext;
+          var destFile = require('path').join(destDir, filename);
+
+          grunt.file.copy(srcFile, destFile);
+
+          if (_.isFunction(options.callback)) {
+            options.callback(destFile, srcFile, srcCode);
+          }
+          grunt.log.writeln('File \'' + destFile + '\' created.');
+        } catch(err) {
+          grunt.log.error(err);
+          grunt.fail.warn("Fail to generate an MD5 file name");
         }
-      }
-      var filename = require('crypto').
-        createHash('md5').
-        update(srcCode).
-        digest('hex') + ext;
-
-      var destFile = require('path').join(destDir, filename);
-
-      grunt.file.copy(srcFile, destFile);
-
-      if (_.isFunction(opts.callback)) {
-        opts.callback(destFile, srcFile, srcCode);
-      }
-
-      callback(destFile, srcFile, srcCode);
-
-    } catch(err) {
-      grunt.log.error(err);
-      grunt.fail.warn("Fail to generate an MD5 file name");
-    }
+      });
+    });
   });
 
   function fileExtension(filename) {
