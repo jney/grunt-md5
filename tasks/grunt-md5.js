@@ -14,7 +14,7 @@ module.exports = function(grunt) {
   // TODO: ditch this when grunt v0.4 is released
   grunt.util = grunt.util || grunt.utils;
 
-  var _ = grunt.util._;
+  var _ = grunt.util._, path = require('path');
 
   grunt.registerMultiTask('md5', 'Generate a md5 filename', function() {
     var options = this.options();
@@ -43,15 +43,17 @@ module.exports = function(grunt) {
 
         try {
           var srcCode = grunt.file.read(srcFile);
-          var ext = '';
+          var ext = '', basename = '';
           // keep extension unless you explicitly tell to not
           if (options.keepExtension !== false) {
-            ext = fileExtension(srcFile);
-            if (ext) {
-              ext = '.' + ext;
-            }
+            ext = path.extname(srcFile);
           }
-          var filename = require('crypto').
+          // keep basename unless you explicitly tell to not
+          if (options.keepBasename !== false) {
+            basename = path.basename(srcFile, ext || path.extname(srcFile));
+          }
+          var filename = basename + '-' +
+            require('crypto').
             createHash('md5').
             update(srcCode).
             digest('hex') + ext;
@@ -71,13 +73,4 @@ module.exports = function(grunt) {
       });
     });
   });
-
-  function fileExtension(filename) {
-    var array = filename.split('.');
-    if (array.length === 1) {
-      return '';
-    } else {
-      return array.pop();
-    }
-  }
 };
