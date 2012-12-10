@@ -29,10 +29,11 @@
     "test": "grunt"
   },
   "dependencies": {
-    "grunt": "~0.4.0a"
+    "grunt-cli": "~0.1.2",
+    "grunt": "~0.4.0"
   },
   "devDependencies": {
-    "grunt": "~0.4.0a",
+    "grunt": "~0.4.0",
     "grunt-contrib-clean": "~0.4.0a",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-nodeunit": "*",

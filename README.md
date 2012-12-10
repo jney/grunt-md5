@@ -26,6 +26,7 @@ grunt.initConfig({
         callback: function (newPath, oldPath, content) {
           // do something with the generated file
         },
+        keepBasename: true,
         keepExtension: true
       }
     }
