@@ -1,2 +1,2 @@
 node_modules
-test/fixtures/output/*.js
+test/fixtures/output/*

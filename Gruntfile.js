@@ -24,9 +24,9 @@ module.exports = function(grunt) {
         boss: true,
         eqnull: true,
         node: true,
-        es5: true
-      },
-      globals: {}
+        es5: true,
+        globals: {}
+      }
     },
     clean: {
       output: {
@@ -36,10 +36,38 @@ module.exports = function(grunt) {
     md5: {
       main: {
         files: {
-          'test/fixtures/output': 'test/fixtures/js/*'
+          'test/fixtures/output/main': 'test/fixtures/test.js'
         },
         options: {
-          keepExtension: true
+          keepExtension: true,
+          keepBasename: true
+        }
+      },
+      noExtension: {
+        files: {
+          'test/fixtures/output/noExtension': 'test/fixtures/test.js'
+        },
+        options: {
+          keepExtension: false,
+          keepBasename: true
+        }
+      },
+      noBasename: {
+        files: {
+          'test/fixtures/output/noBasename': 'test/fixtures/test.js'
+        },
+        options: {
+          keepExtension: true,
+          keepBasename: false 
+        }
+      },
+      noBasenameOrExtension: {
+        files: {
+          'test/fixtures/output/noBasenameOrExtension': 'test/fixtures/test.js'
+        },
+        options: {
+          keepExtension: false,
+          keepBasename: false 
         }
       }
     },
