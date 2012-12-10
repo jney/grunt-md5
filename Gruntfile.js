@@ -80,6 +80,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
-  grunt.registerTask('test', ['clean', 'md5', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'md5', 'nodeunit', 'clean']);
   grunt.registerTask('default', ['jshint', 'test']);
 };
