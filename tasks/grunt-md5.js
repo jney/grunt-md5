@@ -18,52 +18,79 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('md5', 'Generate a md5 filename', function() {
     var options = this.options(),
-      srcFiles = grunt.file.expandFiles(this.file.srcRaw),
-      destDir = this.file.dest;
+      destDir,
+      isExpandedPair;
 
     grunt.verbose.writeflags(options, 'Options');
 
-    grunt.verbose.writeln('Files: ' + srcFiles);
-    grunt.verbose.writeln('Destination directory:' + destDir);
+    this.files.forEach(function(filePair) {
+      isExpandedPair = filePair.orig.expand || false;
 
-    if (typeof srcFiles === 'undefined') {
-      grunt.fail.warn("Files object doesn't exist");
-    }
-
-    srcFiles.forEach(function(srcFile) {
-      if (grunt.file.exists(destDir) === false) {
-        grunt.verbose.writeln("Creating destination directory as it didn't exist.");
-        grunt.file.mkdir(destDir);
+      grunt.verbose.writeln('Files: ' + filePair.src);
+      if (typeof filePair.src === 'undefined') {
+        grunt.fail.warn("Files object doesn't exist");
       }
 
-      try {
-        var srcCode = grunt.file.read(srcFile), ext = '', basename = '', filename, destFile;
-        // keep extension unless you explicitly tell to not
-        if (options.keepExtension !== false) {
-          ext = path.extname(srcFile);
+      filePair.src.forEach(function(srcFile) {
+        if (detectDestType(filePair.dest) === 'directory') {
+          destDir = (isExpandedPair) ? filePair.dest : unixifyPath(path.join(filePair.dest, srcFile));
+        } else {
+          destDir = filePair.dest;
         }
-        // keep basename unless you explicitly tell to not
-        if (options.keepBasename !== false) {
-          basename = path.basename(srcFile, ext || path.extname(srcFile)) + '-';
+
+        grunt.verbose.writeln('Destination directory:' + destDir);
+
+        if (grunt.file.exists(destDir) === false) {
+          grunt.verbose.writeln("Creating destination directory as it didn't exist.");
+          grunt.file.mkdir(destDir);
         }
-        filename = basename +
-          require('crypto').
-          createHash('md5').
-          update(srcCode).
-          digest('hex') + ext;
 
-        destFile = path.join(destDir, filename);
+        try {
+          var srcCode = grunt.file.read(srcFile), ext = '', basename = '', filename, destFile;
+          // keep extension unless you explicitly tell to not
+          if (options.keepExtension !== false) {
+            ext = path.extname(srcFile);
+          }
+          // keep basename unless you explicitly tell to not
+          if (options.keepBasename !== false) {
+            basename = path.basename(srcFile, ext || path.extname(srcFile)) + '-';
+          }
+          filename = basename +
+            require('crypto').
+            createHash('md5').
+            update(srcCode).
+            digest('hex') + ext;
 
-        grunt.file.copy(srcFile, destFile);
+          destFile = path.join(destDir, filename);
 
-        if (_.isFunction(options.callback)) {
-          options.callback(destFile, srcFile, srcCode);
+          grunt.file.copy(srcFile, destFile);
+
+          if (_.isFunction(options.callback)) {
+            options.callback(destFile, srcFile, srcCode);
+          }
+          grunt.log.writeln("File '" + destFile + "' created.");
+        } catch(err) {
+          grunt.log.error(err);
+          grunt.fail.warn("Fail to generate an MD5 file name");
         }
-        grunt.log.writeln("File '" + destFile + "' created.");
-      } catch(err) {
-        grunt.log.error(err);
-        grunt.fail.warn("Fail to generate an MD5 file name");
-      }
+      });
     });
   });
+
+  var detectDestType = function(dest) {
+    if (grunt.util._.endsWith(dest, '/')) {
+      return 'directory';
+    } else {
+      return 'file';
+    }
+  };
+
+  var unixifyPath = function(filepath) {
+    if (process.platform === 'win32') {
+      return filepath.replace(/\\/g, '/');
+    } else {
+      return filepath;
+    }
+  };
 };
+
