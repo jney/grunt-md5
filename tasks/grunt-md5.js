@@ -17,9 +17,9 @@ module.exports = function(grunt) {
   var _ = grunt.util._, path = require('path');
 
   grunt.registerMultiTask('md5', 'Generate a md5 filename', function() {
-    var options = this.options(),
-      destDir,
-      isExpandedPair;
+    var options = this.options();
+    var destDir;
+    var isExpandedPair;
 
     grunt.verbose.writeflags(options, 'Options');
 
