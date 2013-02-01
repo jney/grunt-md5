@@ -26,6 +26,13 @@ grunt.initConfig({
         callback: function (newPath, oldPath, content) {
           // do something with the generated file
         },
+        after: function (filesProcessed) {
+          // The after function is called after all files are processed. (whereas
+          // the callback is called once per file).
+          //
+          // filesProcessed are in following format:
+          // [{newPath: '...', oldPath: '...', content: '...'}, ...]
+        },
         keepBasename: true,
         keepExtension: true
       }
