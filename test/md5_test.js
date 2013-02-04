@@ -52,11 +52,11 @@ exports.md5 = {
             'should generate an MD5 filename without keeping its basename or extension');
     test.done();
   },
-  callback: function(test) {
+  afterEach: function(test) {
     test.expect(1);
-    var output = fs.readFileSync('test/fixtures/output/callback.out', 'utf-8');
-    var expected = fs.readFileSync('test/expected/callback.out', 'utf-8');
-    test.equal(output, expected, 'should call callback function with new path, old path, and file content');
+    var output = fs.readFileSync('test/fixtures/output/afterEach.out', 'utf-8');
+    var expected = fs.readFileSync('test/expected/afterEach.out', 'utf-8');
+    test.equal(output, expected, 'should call afterEach function with new path, old path, and file content');
     test.done();
   },
   after: function(test) {

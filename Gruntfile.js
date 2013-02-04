@@ -73,15 +73,15 @@ module.exports = function(grunt) {
           keepBasename: false 
         }
       },
-      callback: {
+      afterEach: {
         files: {
           'test/fixtures/output/callback': 'test/fixtures/test.js'
         },
         options: {
-          callback: function(newPath, oldPath, content) {
-            var fileContent = 'newPath: ' + newPath + '\noldPath: ' + oldPath + '\ncontent: ' + content;
+          afterEach: function(fileChange) {
+            var fileContent = 'newPath: ' + fileChange.newPath + '\noldPath: ' + fileChange.oldPath + '\ncontent: ' + fileChange.content;
             // Doing sync here because there isn't a way to do async in task execution.
-            fs.appendFileSync('test/fixtures/output/callback.out', fileContent);
+            fs.appendFileSync('test/fixtures/output/afterEach.out', fileContent);
           }
         }
       },
@@ -90,9 +90,9 @@ module.exports = function(grunt) {
           'test/fixtures/output/after': ['test/fixtures/test.js', 'test/fixtures/test2.js']
         },
         options: {
-          after: function(files) {
-            files.forEach(function(file) {
-              var fileContent = 'newPath: ' + file.newPath + '\noldPath: ' + file.oldPath + '\ncontent: ' + file.content;
+          after: function(fileChanges) {
+            fileChanges.forEach(function(fileChange) {
+              var fileContent = 'newPath: ' + fileChange.newPath + '\noldPath: ' + fileChange.oldPath + '\ncontent: ' + fileChange.content;
               // Doing sync here because there isn't a way to do async in task execution.
               fs.appendFileSync('test/fixtures/output/after.out', fileContent);
             });
