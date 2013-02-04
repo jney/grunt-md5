@@ -23,7 +23,12 @@ module.exports = function(grunt) {
 
     grunt.verbose.writeflags(options, 'Options');
 
+    // Keep track of processedFiles so we can call the `after` callback if needed.
+    var processedFiles = [];
     this.files.forEach(function(filePair) {
+      // Changes for each file (old path, new path, file content)
+      var fileChange;
+
       isExpandedPair = filePair.orig.expand || false;
 
       grunt.verbose.writeln('Files: ' + filePair.src);
@@ -65,15 +70,26 @@ module.exports = function(grunt) {
 
           grunt.file.copy(srcFile, destFile);
 
-          if (_.isFunction(options.callback)) {
-            options.callback(destFile, srcFile, srcCode);
+          fileChange = {
+            newPath: destFile,
+            oldPath: srcFile,
+            content: srcCode
+          };
+
+          if (_.isFunction(options.afterEach)) {
+            options.afterEach(fileChange);
           }
+          processedFiles.push(fileChange);
           grunt.log.writeln("File '" + destFile + "' created.");
         } catch(err) {
           grunt.log.error(err);
           grunt.fail.warn("Fail to generate an MD5 file name");
         }
       });
+
+      if (options.after) {
+        options.after(processedFiles);
+      }
     });
   });
 
