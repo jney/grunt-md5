@@ -1,5 +1,5 @@
 // For testing callbacks.
-fs = require('fs');
+var fs = require('fs');
 
 module.exports = function(grunt) {
   'use strict';
