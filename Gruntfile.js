@@ -1,3 +1,6 @@
+// For testing callbacks.
+var fs = require('fs');
+
 module.exports = function(grunt) {
   'use strict';
   // Project configuration.
@@ -68,6 +71,32 @@ module.exports = function(grunt) {
         options: {
           keepExtension: false,
           keepBasename: false 
+        }
+      },
+      afterEach: {
+        files: {
+          'test/fixtures/output/callback': 'test/fixtures/test.js'
+        },
+        options: {
+          afterEach: function(fileChange) {
+            var fileContent = 'newPath: ' + fileChange.newPath + '\noldPath: ' + fileChange.oldPath + '\ncontent: ' + fileChange.content;
+            // Doing sync here because there isn't a way to do async in task execution.
+            fs.appendFileSync('test/fixtures/output/afterEach.out', fileContent);
+          }
+        }
+      },
+      after: {
+        files: {
+          'test/fixtures/output/after': ['test/fixtures/test.js', 'test/fixtures/test2.js']
+        },
+        options: {
+          after: function(fileChanges) {
+            fileChanges.forEach(function(fileChange) {
+              var fileContent = 'newPath: ' + fileChange.newPath + '\noldPath: ' + fileChange.oldPath + '\ncontent: ' + fileChange.content;
+              // Doing sync here because there isn't a way to do async in task execution.
+              fs.appendFileSync('test/fixtures/output/after.out', fileContent);
+            });
+          }
         }
       }
     },

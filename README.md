@@ -23,11 +23,28 @@ grunt.initConfig({
         'dest/folder': 'src/file'
       },
       options: {
-        callback: function (newPath, oldPath, content) {
-          // do something with the generated file
-        },
         keepBasename: true,
-        keepExtension: true
+        keepExtension: true,
+        afterEach: function (fileChange) {
+          // Called once for each file processed by the md5 task.
+
+          // fileChange is in following format:
+          //
+          // {
+          //   newPath: '...',
+          //   oldPath: '...',
+          //   content: '...'
+          // }
+          //
+          // Where newPath is the path with MD5, oldPath is the original path,
+          // and content is the file content.
+        },
+        after: function (fileChanges) {
+          // Called after all of the files are processed by the md5 task.
+
+          // fileChanges is an array, holding the same values are the afterEach callback.
+          // [{newPath: '...', oldPath: '...', content: '...'}, ...]
+        }
       }
     }
   }
