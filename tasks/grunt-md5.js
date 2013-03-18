@@ -21,7 +21,9 @@ module.exports = function(grunt) {
     var destDir;
     // file object : {newPath: /***/, oldPath: /***/, content: /***/}
     var currentFile;
-    var options = this.options();
+    var options = this.options({
+      encoding: 'utf8'
+    });
 
     grunt.verbose.writeflags(options, 'Options');
 
@@ -65,7 +67,7 @@ module.exports = function(grunt) {
           filename = basename +
             require('crypto').
             createHash('md5').
-            update(srcCode).
+            update(srcCode, options.encoding).
             digest('hex') + ext;
 
           destFile = path.join(file.dest, filename);

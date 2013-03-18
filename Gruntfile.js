@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         },
         options: {
           keepExtension: true,
-          keepBasename: false 
+          keepBasename: false
         }
       },
       noBasenameOrExtension: {
@@ -70,7 +70,17 @@ module.exports = function(grunt) {
         },
         options: {
           keepExtension: false,
-          keepBasename: false 
+          keepBasename: false
+        }
+      },
+      internationalCharacters: {
+        files: {
+          'test/fixtures/output/internationalCharacters': 'test/fixtures/international.js'
+        },
+        options: {
+          encoding: 'utf8',
+          keepExtension: true,
+          keepBasename: true
         }
       },
       afterEach: {

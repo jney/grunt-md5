@@ -23,6 +23,7 @@ grunt.initConfig({
         'dest/folder': 'src/file'
       },
       options: {
+        encoding: 'utf8',
         keepBasename: true,
         keepExtension: true,
         afterEach: function (fileChange) {
