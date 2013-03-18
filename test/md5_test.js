@@ -9,7 +9,7 @@ exports.md5 = {
 
     var md5Filename = 'test-' + require('crypto').
       createHash('md5').
-      update(grunt.file.read('test/fixtures/test.js'), 'utf8').
+      update(grunt.file.read('test/fixtures/test.js', {encoding: 'utf8'}), 'utf8').
       digest('hex') + '.js';
 
     test.ok(grunt.file.exists('test/fixtures/output/main/' + md5Filename),
@@ -21,7 +21,7 @@ exports.md5 = {
 
     var md5Filename = 'test-' + require('crypto').
       createHash('md5').
-      update(grunt.file.read('test/fixtures/test.js'), 'utf8').
+      update(grunt.file.read('test/fixtures/test.js', {encoding: 'utf8'}), 'utf8').
       digest('hex');
 
     test.ok(grunt.file.exists('test/fixtures/output/noExtension/' + md5Filename),
@@ -33,7 +33,7 @@ exports.md5 = {
 
     var md5Filename = require('crypto').
       createHash('md5').
-      update(grunt.file.read('test/fixtures/test.js'), 'utf8').
+      update(grunt.file.read('test/fixtures/test.js', {encoding: 'utf8'}), 'utf8').
       digest('hex') + '.js';
 
     test.ok(grunt.file.exists('test/fixtures/output/noBasename/' + md5Filename),
@@ -45,7 +45,7 @@ exports.md5 = {
 
     var md5Filename = require('crypto').
       createHash('md5').
-      update(grunt.file.read('test/fixtures/test.js'), 'utf8').
+      update(grunt.file.read('test/fixtures/test.js', {encoding: 'utf8'}), 'utf8').
       digest('hex');
 
     test.ok(grunt.file.exists('test/fixtures/output/noBasenameOrExtension/' + md5Filename),
@@ -57,7 +57,7 @@ exports.md5 = {
 
     var md5Filename = 'international-' + require('crypto').
       createHash('md5').
-      update(grunt.file.read('test/fixtures/international.js'), 'utf8').
+      update(grunt.file.read('test/fixtures/international.js', {encoding: 'utf8'}), 'utf8').
       digest('hex') + '.js';
 
     test.ok(grunt.file.exists('test/fixtures/output/internationalCharacters/' + md5Filename),

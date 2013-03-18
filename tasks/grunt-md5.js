@@ -52,7 +52,7 @@ module.exports = function(grunt) {
           var destFile;
           var ext = '';
           var filename;
-          var srcCode = grunt.file.read(srcFile);
+          var srcCode = grunt.file.read(srcFile, {encoding: options.encoding});
 
           // keep extension unless you explicitly tell to not
           if (options.keepExtension !== false) {
