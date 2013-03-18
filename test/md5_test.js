@@ -65,6 +65,23 @@ exports.md5 = {
 
     test.done();
   },
+  expandFiles: function(test) {
+    test.expect(4);
+
+    var filePath = 'test/fixtures/output/expand/js/file1-d41d8cd98f00b204e9800998ecf8427e.js';
+    test.ok(grunt.file.isFile(filePath), 'should generate js files not directories');
+    
+    filePath = 'test/fixtures/output/expand/js/file2-d41d8cd98f00b204e9800998ecf8427e.js';
+    test.ok(grunt.file.isFile(filePath), 'should generate js files not directories');
+
+    filePath = 'test/fixtures/output/expand/css/file3-d41d8cd98f00b204e9800998ecf8427e.css';
+    test.ok(grunt.file.isFile(filePath), 'should generate css files not directories');
+
+    filePath = 'test/fixtures/output/expand/css/file4-d41d8cd98f00b204e9800998ecf8427e.css';
+    test.ok(grunt.file.isFile(filePath), 'should generate css files not directories');
+    
+    test.done();
+  },
   afterEach: function(test) {
     test.expect(1);
     var output = fs.readFileSync('test/fixtures/output/afterEach.out', 'utf-8');

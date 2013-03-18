@@ -39,7 +39,7 @@ module.exports = function(grunt) {
     md5: {
       main: {
         files: {
-          'test/fixtures/output/main': 'test/fixtures/test.js'
+          'test/fixtures/output/main/': 'test/fixtures/test.js'
         },
         options: {
           keepExtension: true,
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
       },
       noExtension: {
         files: {
-          'test/fixtures/output/noExtension': 'test/fixtures/test.js'
+          'test/fixtures/output/noExtension/': 'test/fixtures/test.js'
         },
         options: {
           keepExtension: false,
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
       },
       noBasename: {
         files: {
-          'test/fixtures/output/noBasename': 'test/fixtures/test.js'
+          'test/fixtures/output/noBasename/': 'test/fixtures/test.js'
         },
         options: {
           keepExtension: true,
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
       },
       noBasenameOrExtension: {
         files: {
-          'test/fixtures/output/noBasenameOrExtension': 'test/fixtures/test.js'
+          'test/fixtures/output/noBasenameOrExtension/': 'test/fixtures/test.js'
         },
         options: {
           keepExtension: false,
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
       },
       internationalCharacters: {
         files: {
-          'test/fixtures/output/internationalCharacters': 'test/fixtures/international.js'
+          'test/fixtures/output/internationalCharacters/': 'test/fixtures/international.js'
         },
         options: {
           encoding: 'utf8',
@@ -83,9 +83,29 @@ module.exports = function(grunt) {
           keepBasename: true
         }
       },
+      expandFiles: {
+        files: [
+          {
+            expand: true,
+            cwd: 'test/fixtures/expand/',
+            src: [
+              '*.js'
+            ],
+            dest: 'test/fixtures/output/expand/js/'
+          },
+          {
+            expand: true,
+            cwd: 'test/fixtures/expand/',
+            src: [
+              '*.css'
+            ],
+            dest: 'test/fixtures/output/expand/css/'
+          }
+        ]
+      },
       afterEach: {
         files: {
-          'test/fixtures/output/callback': 'test/fixtures/test.js'
+          'test/fixtures/output/callback/': 'test/fixtures/test.js'
         },
         options: {
           afterEach: function(fileChange) {
@@ -97,7 +117,7 @@ module.exports = function(grunt) {
       },
       after: {
         files: {
-          'test/fixtures/output/after': ['test/fixtures/test.js', 'test/fixtures/test2.js']
+          'test/fixtures/output/after/': ['test/fixtures/test.js', 'test/fixtures/test2.js']
         },
         options: {
           after: function(fileChanges) {
