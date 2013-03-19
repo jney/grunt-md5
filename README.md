@@ -56,9 +56,10 @@ grunt.initConfig({
 [getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
 
 ## Release History
-* 0.1.7 Grunt 0.4.0 ready. `after` parameter.
+* 0.1.8 Encoding option, enhancements in directories management (#12, #13, #14)
+* 0.1.7 Grunt 0.4.0 ready. `after` parameter. (#9)
 * 0.1.5 Support for keeping the original file's basename
-* 0.1.4 Compatibility with grunt 0.4
+* 0.1.4 Compatibility with grunt 0.4 (#7, #8)
 * 0.1.1 Fixing many files handling
 * 0.0.1 First Release
 
