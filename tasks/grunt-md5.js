@@ -18,7 +18,6 @@ module.exports = function(grunt) {
   var path = require('path');
 
   grunt.registerMultiTask('md5', 'Generate a md5 filename', function() {
-    var destDir;
     // file object : {newPath: /***/, oldPath: /***/, content: /***/}
     var currentFile;
     var options = this.options({
@@ -27,26 +26,17 @@ module.exports = function(grunt) {
 
     grunt.verbose.writeflags(options, 'Options');
 
-    this.files.forEach(function(file) {
+    this.files.forEach(function(filePair) {
+      var isExpandedPair = filePair.orig.expand || false;
+
       // Keep track of processedFiles so we can call the `after` callback if needed.
       var processedFiles = [];
 
-      if (typeof file.src === 'undefined') {
+      if (typeof filePair.src === 'undefined') {
         grunt.fail.warn('Files object doesn\'t exist');
       }
 
-      if (!grunt.file.exists(file.dest)) {
-        grunt.file.mkdir(file.dest);
-        grunt.verbose.writeln('Directory \'' + file.dest + '\' created.');
-      }
-
-      var srcFiles = grunt.file.expand(file.src);
-      var destDir = grunt.file.expand(file.dest)[0];
-
-      grunt.verbose.writeln('Files: ' + file.src);
-      grunt.verbose.writeln('Destination directory: \'' + destDir + '\'');
-
-      srcFiles.forEach(function(srcFile) {
+      filePair.src.forEach(function(srcFile) {
         try {
           var basename = '';
           var destFile;
@@ -70,8 +60,12 @@ module.exports = function(grunt) {
             update(srcCode, options.encoding).
             digest('hex') + ext;
 
-          destFile = path.join(file.dest, filename);
-
+          var regex = new RegExp(escapeRegExp(path.basename(srcFile)) + "$");
+          if (detectDestType(filePair.dest) === 'directory') {
+            destFile = (isExpandedPair) ? filePair.dest.replace(regex, filename) : unixifyPath(path.join(filePair.dest, filename));
+          } else {
+            destFile = filePair.dest.replace(regex, filename);
+          }
           grunt.file.copy(srcFile, destFile);
 
           currentFile = {
@@ -102,5 +96,28 @@ module.exports = function(grunt) {
       }
     });
   });
+
+  // From grunt-contrib-copy
+  var detectDestType = function(dest) {
+    if (grunt.util._.endsWith(dest, '/')) {
+      return 'directory';
+    } else {
+      return 'file';
+    }
+  };
+
+  // From grunt-contrib-copy
+  var unixifyPath = function(filepath) {
+    if (process.platform === 'win32') {
+      return filepath.replace(/\\/g, '/');
+    } else {
+      return filepath;
+    }
+  };
+
+  // http://stackoverflow.com/a/3561711
+  var escapeRegExp = function(s) {
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  };
 };
 
