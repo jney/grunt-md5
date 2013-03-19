@@ -20,7 +20,7 @@ grunt.initConfig({
   md5: {
     compile: {
       files: {
-        'dest/folder': 'src/file'
+        'dest/folder/': 'src/file'
       },
       options: {
         encoding: 'utf8',
