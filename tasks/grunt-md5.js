@@ -23,6 +23,8 @@ module.exports = function(grunt) {
     var options = this.options({
       encoding: 'utf8'
     });
+    
+    var context = this;
 
     grunt.verbose.writeflags(options, 'Options');
 
@@ -76,7 +78,7 @@ module.exports = function(grunt) {
 
           // for callback after each file
           if (_.isFunction(options.afterEach)) {
-            options.afterEach(currentFile);
+            options.afterEach.call(context, currentFile, options);
           }
 
           if (_.isFunction(options.after)) {
@@ -92,7 +94,7 @@ module.exports = function(grunt) {
 
       // call `after` if defined
       if (_.isFunction(options.after)) {
-        options.after(processedFiles);
+        options.after.call(context, processedFiles, options);
       }
     });
   });
