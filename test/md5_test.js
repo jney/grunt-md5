@@ -95,5 +95,19 @@ exports.md5 = {
     var expected = fs.readFileSync('test/expected/after.out', 'utf-8');
     test.equal(output, expected, 'should call after function with all new path, old path, and file content of all files');
     test.done();
+  },
+  contextAndOptionsAfterEach: function(test) {
+    test.expect(1);
+    var output = fs.readFileSync('test/fixtures/output/contextAndOptions/afterEach.out', 'utf-8');
+    var expected = fs.readFileSync('test/expected/contextAndOptions/afterEach.out', 'utf-8');
+    test.equal(output, expected, 'should give options to callback and set task context');
+    test.done();
+  },
+  contextAndOptionsAfter: function(test) {
+    test.expect(1);
+    var output = fs.readFileSync('test/fixtures/output/contextAndOptions/after.out', 'utf-8');
+    var expected = fs.readFileSync('test/expected/contextAndOptions/after.out', 'utf-8');
+    test.equal(output, expected, 'should give options to callback and set task context');
+    test.done();
   }
 };
