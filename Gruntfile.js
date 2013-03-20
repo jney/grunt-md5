@@ -128,6 +128,30 @@ module.exports = function(grunt) {
             });
           }
         }
+      },
+      contextAndOptionsAfterEach: {
+        files: {
+          'test/fixtures/output/contextAndOptions/': 'test/fixtures/test.js'
+        },
+        options: {
+          findMe: true,
+          afterEach: function(fileChange, options) {
+            var fileContent = 'options=' + typeof options + '\nfindMe=' + options.findMe + '\nthis.nameArgs=' + this.nameArgs;
+            fs.appendFileSync('test/fixtures/output/contextAndOptions/afterEach.out', fileContent);
+          }
+        }
+      },
+      contextAndOptionsAfter: {
+        files: {
+          'test/fixtures/output/contextAndOptions/': ['test/fixtures/test.js', 'test/fixtures/test2.js']
+        },
+        options: {
+          findMe: true,
+          after: function(fileChanges, options) {
+            var fileContent = 'options=' + typeof options + '\nfindMe=' + options.findMe + '\nthis.nameArgs=' + this.nameArgs;
+            fs.appendFileSync('test/fixtures/output/contextAndOptions/after.out', fileContent);
+          }
+        }
       }
     },
     nodeunit: {

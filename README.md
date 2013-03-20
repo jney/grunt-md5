@@ -26,7 +26,7 @@ grunt.initConfig({
         encoding: 'utf8',
         keepBasename: true,
         keepExtension: true,
-        afterEach: function (fileChange) {
+        afterEach: function (fileChange, options) {
           // Called once for each file processed by the md5 task.
 
           // fileChange is in following format:
@@ -39,12 +39,29 @@ grunt.initConfig({
           //
           // Where newPath is the path with MD5, oldPath is the original path,
           // and content is the file content.
+
+          // options is the options object of the task
+          // In this case:
+          // {encoding: 'utf8', keepBasename: true, keepExtension: true, afterEach: function () {...} after: function () {...}}
+
+          // The context (value of "this") is set to the context of the task
+          // this.nameArgs -> "md5:compile"
+          // See more information at http://gruntjs.com/api/inside-tasks
+
         },
-        after: function (fileChanges) {
+        after: function (fileChanges, options) {
           // Called after all of the files are processed by the md5 task.
 
           // fileChanges is an array, holding the same values are the afterEach callback.
           // [{newPath: '...', oldPath: '...', content: '...'}, ...]
+
+          // options is the options object of the task
+          // In this case:
+          // {encoding: 'utf8', keepBasename: true, keepExtension: true, afterEach: function () {...} after: function () {...}}
+
+          // The context (value of "this") is set to the context of the task
+          // this.nameArgs -> "md5:compile"
+          // See more information at http://gruntjs.com/api/inside-tasks
         }
       }
     }
