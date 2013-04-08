@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     // file object : {newPath: /***/, oldPath: /***/, content: /***/}
     var currentFile;
     var options = this.options({
-      encoding: 'utf8'
+      encoding: null
     });
     
     var context = this;

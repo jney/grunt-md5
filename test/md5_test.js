@@ -3,64 +3,43 @@
 var grunt = require('grunt');
 var fs = require('fs');
 
+var test_md5 = '8ba6ae54067b2766661cd6f11331f557';
+var international_md5 = 'ae0e5baf6ea3a665d9bcf8f7266359ea';
+var grunt_logo_md5 = 'f44795fb5f6fb7a7eb432d71baeb2402';
+
 exports.md5 = {
   main: function(test) {
     test.expect(1);
 
-    var md5Filename = 'test-' + require('crypto').
-      createHash('md5').
-      update(grunt.file.read('test/fixtures/test.js', {encoding: 'utf8'}), 'utf8').
-      digest('hex') + '.js';
-
-    test.ok(grunt.file.exists('test/fixtures/output/main/' + md5Filename),
+    test.ok(grunt.file.exists('test/fixtures/output/main/test-' + test_md5 + '.js'),
             'should generate an MD5 filename keeping its basename and extension');
     test.done();
   },
   noExtension: function(test) {
     test.expect(1);
 
-    var md5Filename = 'test-' + require('crypto').
-      createHash('md5').
-      update(grunt.file.read('test/fixtures/test.js', {encoding: 'utf8'}), 'utf8').
-      digest('hex');
-
-    test.ok(grunt.file.exists('test/fixtures/output/noExtension/' + md5Filename),
+    test.ok(grunt.file.exists('test/fixtures/output/noExtension/test-' + test_md5),
             'should generate an MD5 filename keeping only its basename');
     test.done();
   },
   noBasename: function(test) {
     test.expect(1);
 
-    var md5Filename = require('crypto').
-      createHash('md5').
-      update(grunt.file.read('test/fixtures/test.js', {encoding: 'utf8'}), 'utf8').
-      digest('hex') + '.js';
-
-    test.ok(grunt.file.exists('test/fixtures/output/noBasename/' + md5Filename),
+    test.ok(grunt.file.exists('test/fixtures/output/noBasename/' + test_md5 + '.js'),
             'should generate an MD5 filename keeping only its extension');
     test.done();
   },
   noBasenameOrExtension: function(test) {
     test.expect(1);
 
-    var md5Filename = require('crypto').
-      createHash('md5').
-      update(grunt.file.read('test/fixtures/test.js', {encoding: 'utf8'}), 'utf8').
-      digest('hex');
-
-    test.ok(grunt.file.exists('test/fixtures/output/noBasenameOrExtension/' + md5Filename),
+    test.ok(grunt.file.exists('test/fixtures/output/noBasenameOrExtension/' + test_md5),
             'should generate an MD5 filename without keeping its basename or extension');
     test.done();
   },
   internationalCharacters: function(test) {
     test.expect(1);
 
-    var md5Filename = 'international-' + require('crypto').
-      createHash('md5').
-      update(grunt.file.read('test/fixtures/international.js', {encoding: 'utf8'}), 'utf8').
-      digest('hex') + '.js';
-
-    test.ok(grunt.file.exists('test/fixtures/output/internationalCharacters/' + md5Filename),
+    test.ok(grunt.file.exists('test/fixtures/output/internationalCharacters/international-' + international_md5 + '.js'),
             'should generate correct MD5 filename for contents with international characters');
 
     test.done();
@@ -108,6 +87,12 @@ exports.md5 = {
     var output = fs.readFileSync('test/fixtures/output/contextAndOptions/after.out', 'utf-8');
     var expected = fs.readFileSync('test/expected/contextAndOptions/after.out', 'utf-8');
     test.equal(output, expected, 'should give options to callback and set task context');
+    test.done();
+  },
+  binary: function(test) {
+    test.expect(1);
+    var filePath = 'test/fixtures/output/grunt-logo-' + grunt_logo_md5 + '.png';
+    test.ok(grunt.file.isFile(filePath), 'should generate correct hash for binary content');
     test.done();
   }
 };
