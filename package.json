@@ -1,7 +1,7 @@
 {
   "name": "grunt-md5",
   "description": "generate md5 filename",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "homepage": "https://github.com/jney/grunt-md5",
   "author": {
     "name": "Jean-Sébastien Ney",
@@ -29,15 +29,16 @@
     "test": "grunt"
   },
   "dependencies": {
-    "grunt-cli": "~0.1.2",
+    "grunt-cli": "~0.1.7",
     "grunt": "~0.4.0"
   },
   "devDependencies": {
-    "grunt": "~0.4.0",
-    "grunt-contrib-clean": "~0.4.0rc6",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-nodeunit": "*",
-    "grunt-contrib-watch": "*"
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-jshint": "~0.4.0",
+    "grunt-cli": "~0.1.7"
   },
   "keywords": [
     "gruntplugin"

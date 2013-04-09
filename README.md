@@ -73,13 +73,14 @@ grunt.initConfig({
 [getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
 
 ## Release History
-* 0.1.9 changing `after` and `afterEach` signature, added `options` argument, plus context
-* 0.1.8 Encoding option, enhancements in directories management
-* 0.1.7 Grunt 0.4.0 ready. `after` parameter
-* 0.1.5 Support for keeping the original file's basename
-* 0.1.4 Compatibility with grunt 0.4
-* 0.1.1 Fixing many files handling
-* 0.0.1 First Release
+* 0.1.10 Supporting binary encoded files
+* 0.1.9  Changing `after` and `afterEach` signature, added `options` argument, plus context
+* 0.1.8  Encoding option, enhancements in directories management
+* 0.1.7  Grunt 0.4.0 ready. `after` parameter
+* 0.1.5  Support for keeping the original file's basename
+* 0.1.4  Compatibility with grunt 0.4
+* 0.1.1  Fixing many files handling
+* 0.0.1  First Release
 
 ## License
 Copyright (c) 2012 Jean-Sébastien Ney & contributors
