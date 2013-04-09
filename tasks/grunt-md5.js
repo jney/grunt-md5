@@ -23,16 +23,16 @@ module.exports = function(grunt) {
     var options = this.options({
       encoding: null
     });
-    
+
     var context = this;
 
     grunt.verbose.writeflags(options, 'Options');
 
+    // Keep track of processedFiles so we can call the `after` callback if needed.
+    var processedFiles = [];
+
     this.files.forEach(function(filePair) {
       var isExpandedPair = filePair.orig.expand || false;
-
-      // Keep track of processedFiles so we can call the `after` callback if needed.
-      var processedFiles = [];
 
       if (typeof filePair.src === 'undefined') {
         grunt.fail.warn('Files object doesn\'t exist');
@@ -91,12 +91,12 @@ module.exports = function(grunt) {
           grunt.fail.warn('Fail to generate an MD5 file name');
         }
       });
-
-      // call `after` if defined
-      if (_.isFunction(options.after)) {
-        options.after.call(context, processedFiles, options);
-      }
     });
+
+    // call `after` if defined
+    if (_.isFunction(options.after)) {
+      options.after.call(context, processedFiles, options);
+    }
   });
 
   // From grunt-contrib-copy

@@ -1,1 +1,1 @@
-/* only for testing international characters: åäöæøéßç*/
+// Only for testing international characters: åäöæøéßç
