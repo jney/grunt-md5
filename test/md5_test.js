@@ -3,8 +3,8 @@
 var grunt = require('grunt');
 var fs = require('fs');
 
-var test_md5 = '8ba6ae54067b2766661cd6f11331f557';
-var international_md5 = 'ae0e5baf6ea3a665d9bcf8f7266359ea';
+var test_md5 = '849e27d0aa28588b7679e0b2a84035f9';
+var international_md5 = 'ab23229dd625341559e2bde4c8a3dcfe';
 var grunt_logo_md5 = 'f44795fb5f6fb7a7eb432d71baeb2402';
 
 exports.md5 = {
@@ -49,7 +49,7 @@ exports.md5 = {
 
     var filePath = 'test/fixtures/output/expand/js/file1-d41d8cd98f00b204e9800998ecf8427e.js';
     test.ok(grunt.file.isFile(filePath), 'should generate js files not directories');
-    
+
     filePath = 'test/fixtures/output/expand/js/file2-d41d8cd98f00b204e9800998ecf8427e.js';
     test.ok(grunt.file.isFile(filePath), 'should generate js files not directories');
 
@@ -58,7 +58,7 @@ exports.md5 = {
 
     filePath = 'test/fixtures/output/expand/css/file4-d41d8cd98f00b204e9800998ecf8427e.css';
     test.ok(grunt.file.isFile(filePath), 'should generate css files not directories');
-    
+
     test.done();
   },
   afterEach: function(test) {
@@ -72,7 +72,7 @@ exports.md5 = {
     test.expect(1);
     var output = fs.readFileSync('test/fixtures/output/after.out', 'utf-8');
     var expected = fs.readFileSync('test/expected/after.out', 'utf-8');
-    test.equal(output, expected, 'should call after function with all new path, old path, and file content of all files');
+    test.equal(output, expected, 'should call after function _once_ with all new path, old path, and file content of all files');
     test.done();
   },
   contextAndOptionsAfterEach: function(test) {
