@@ -23,7 +23,7 @@ grunt.initConfig({
         'dest/folder/': 'src/file'
       },
       options: {
-        encoding: 'utf8',
+        encoding: null,
         keepBasename: true,
         keepExtension: true,
         afterEach: function (fileChange, options) {
@@ -42,7 +42,7 @@ grunt.initConfig({
 
           // options is the options object of the task
           // In this case:
-          // {encoding: 'utf8', keepBasename: true, keepExtension: true, afterEach: function () {...} after: function () {...}}
+          // {encoding: null, keepBasename: true, keepExtension: true, afterEach: function () {...} after: function () {...}}
 
           // The context (value of "this") is set to the context of the task
           // this.nameArgs -> "md5:compile"
@@ -57,7 +57,7 @@ grunt.initConfig({
 
           // options is the options object of the task
           // In this case:
-          // {encoding: 'utf8', keepBasename: true, keepExtension: true, afterEach: function () {...} after: function () {...}}
+          // {encoding: null, keepBasename: true, keepExtension: true, afterEach: function () {...} after: function () {...}}
 
           // The context (value of "this") is set to the context of the task
           // this.nameArgs -> "md5:compile"

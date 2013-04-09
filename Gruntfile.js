@@ -78,7 +78,6 @@ module.exports = function(grunt) {
           'test/fixtures/output/internationalCharacters/': 'test/fixtures/international.js'
         },
         options: {
-          encoding: 'utf8',
           keepExtension: true,
           keepBasename: true
         }
@@ -151,6 +150,11 @@ module.exports = function(grunt) {
             var fileContent = 'options=' + typeof options + '\nfindMe=' + options.findMe + '\nthis.nameArgs=' + this.nameArgs;
             fs.appendFileSync('test/fixtures/output/contextAndOptions/after.out', fileContent);
           }
+        }
+      },
+      binary: {
+        files: {
+          'test/fixtures/output/': ['test/fixtures/grunt-logo.png']
         }
       }
     },
