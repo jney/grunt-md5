@@ -103,28 +103,76 @@ module.exports = function(grunt) {
         ]
       },
       afterEach: {
-        files: {
-          'test/fixtures/output/callback/': 'test/fixtures/test.js'
-        },
+        files: [
+          {
+            'test/fixtures/output/callback/': ['test/fixtures/test.js', 'test/fixtures/test2.js']
+          },
+          {
+            expand: true,
+            cwd: 'test/fixtures/expand/',
+            src: [
+              '*.js'
+            ],
+            dest: 'test/fixtures/output/callback/js/'
+          },
+          {
+            expand: true,
+            cwd: 'test/fixtures/expand/',
+            src: [
+              '*.css'
+            ],
+            dest: 'test/fixtures/output/callback/css/'
+          }
+        ],
         options: {
           afterEach: function(fileChange) {
-            var fileContent = 'newPath: ' + fileChange.newPath + '\noldPath: ' + fileChange.oldPath + '\ncontent: ' + fileChange.content;
+            var fileContent = [
+              'newPath:' + fileChange.newPath,
+              'oldPath:' + fileChange.oldPath,
+              'content:' + fileChange.content,
+              ''
+            ].join('\n');
             // Doing sync here because there isn't a way to do async in task execution.
             fs.appendFileSync('test/fixtures/output/afterEach.out', fileContent);
           }
         }
       },
       after: {
-        files: {
-          'test/fixtures/output/after/': ['test/fixtures/test.js', 'test/fixtures/test2.js']
-        },
+        files: [
+          {
+            'test/fixtures/output/after/': ['test/fixtures/test.js', 'test/fixtures/test2.js']
+          },
+          {
+            expand: true,
+            cwd: 'test/fixtures/expand/',
+            src: [
+              '*.js'
+            ],
+            dest: 'test/fixtures/output/after/js/'
+          },
+          {
+            expand: true,
+            cwd: 'test/fixtures/expand/',
+            src: [
+              '*.css'
+            ],
+            dest: 'test/fixtures/output/after/css/'
+          }
+        ],
         options: {
           after: function(fileChanges) {
+            var fileContent = '';
             fileChanges.forEach(function(fileChange) {
-              var fileContent = 'newPath: ' + fileChange.newPath + '\noldPath: ' + fileChange.oldPath + '\ncontent: ' + fileChange.content;
-              // Doing sync here because there isn't a way to do async in task execution.
-              fs.appendFileSync('test/fixtures/output/after.out', fileContent);
+              fileContent += [
+                'newPath:' + fileChange.newPath,
+                'oldPath:' + fileChange.oldPath,
+                'content:' + fileChange.content,
+                ''
+              ].join('\n');
             });
+            // Doing sync here because there isn't a way to do async in task execution.
+            // Do a writeFileSync instead of appendFileSync to help the tests ensure this after callback only runs once
+            fs.writeFileSync('test/fixtures/output/after.out', fileContent);
           }
         }
       },

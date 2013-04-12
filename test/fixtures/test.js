@@ -1,1 +1,1 @@
-/* only for testing */
+// Only for testing

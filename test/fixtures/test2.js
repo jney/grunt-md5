@@ -1,1 +1,1 @@
-/* only for testing (test2.js) */
+// Only for testing (test2.js)
