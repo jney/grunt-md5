@@ -38,7 +38,10 @@ module.exports = function(grunt) {
         grunt.fail.warn('Files object doesn\'t exist');
       }
 
-      filePair.src.forEach(function(srcFile) {
+      filePair.src.filter(function(filepath) {
+        return grunt.file.isFile(filepath);
+      })
+      .forEach(function(srcFile) {
         try {
           var basename = '';
           var destFile;
