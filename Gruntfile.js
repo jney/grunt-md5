@@ -204,6 +204,11 @@ module.exports = function(grunt) {
         files: {
           'test/fixtures/output/': ['test/fixtures/grunt-logo.png']
         }
+      },
+      nestedDirs: {
+        files: {
+          'test/fixtures/output/':  'test/fixtures/*'
+        }
       }
     },
     nodeunit: {
